@@ -17,19 +17,16 @@ public class HelloApplication {
         SpringApplication.run(HelloApplication.class, args);
     }
 
-    // Configuration for multiple ports and security
     @Configuration
     class ServerConfig {
 
         @Bean
         public WebServerFactoryCustomizer<TomcatServletWebServerFactory> serverCustomizer() {
             return factory -> {
-                factory.addAdditionalTomcatConnectors(httpConnector8080()); // For TLS on 8080
-                // Removed 8000 connector; actuator will use management.server.port
+                factory.addAdditionalTomcatConnectors(httpConnector8080()); 
             };
         }
 
-        // Connector for 8080 (TLS route, internally HTTP since edge-terminated by OpenShift)
         @Bean
         public Connector httpConnector8080() {
             Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
@@ -38,15 +35,14 @@ public class HelloApplication {
             return connector;
         }
 
-        // Security configuration
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/mtls/page", "/tls/page", "/actuator/**").permitAll()
-                    .anyRequest().authenticated() // Require auth for other endpoints if needed
+                    .anyRequest().authenticated() 
                 )
-                .csrf().disable(); // Disable CSRF for simplicity
+                .csrf().disable(); 
             return http.build();
         }
     }
