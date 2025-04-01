@@ -1,0 +1,32 @@
+# Java and Maven build artifacts
+target/
+*.jar
+*.war
+*.ear
+
+# IDE files (e.g., IntelliJ, Eclipse, VS Code)
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*~
+*.swp
+*.tmp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Sensitive files (optional - exclude if they contain secrets)
+client-cert.pem
+client-keystore.p12
+server-cert.pem
